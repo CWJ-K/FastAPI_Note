@@ -5,6 +5,19 @@
 
 <!-- omit in toc -->
 # Table of Contents
+- [Fundamental Concepts](#fundamental-concepts)
+  - [endpoint](#endpoint)
+  - [FastAPI](#fastapi)
+  - [Uvicorn](#uvicorn)
+  - [Payload](#payload)
+- [Commands](#commands)
+  - [Structure of FastAPI](#structure-of-fastapi)
+  - [Call a FastAPI](#call-a-fastapi)
+    - [Issue: uvicorn ERROR: [Errno 98] Address already in use](#issue-uvicorn-error-errno-98-address-already-in-use)
+  - [FastAPI automatic interactive documentation](#fastapi-automatic-interactive-documentation)
+  - [Handle Request Parameters](#handle-request-parameters)
+    - [Path Parameters](#path-parameters)
+      - [Codes](#codes)
 
 <br />
 
@@ -13,10 +26,12 @@
 
 ## FastAPI
 * expose an **ASGI-compatible** application
-* automatic interactive documentation includes:
+* rely on OpenAPI specification, [`Swagger`](https://swagger.io/), automatic interactive documentation includes:
   * all defined endpoints
   * documentation about expected inputs and outputs
-
+* build upon Python libraries
+  1. Starletee: a low-level ASGI framework
+  2. pydantic: a data validation library based on type hints => can define parameters declaratively
 
 ## Uvicorn
 * a web server compatible with ASGI protocol
@@ -46,6 +61,7 @@
 * `@`: decorator, synatic sugar, to wrap a function with common logic without compromising readability
 
 ## Call a FastAPI
+* python_script is calles as a module, so use dotted path
 ```bash
     # :variable_name_of_your_ASGI_app_instance
     uvicorn python_script:app --port <port> --host <host>
@@ -65,6 +81,7 @@
     kill -9 <process_id>
 
 ```
+<br />
 
 ## FastAPI automatic interactive documentation 
 ```bash
@@ -73,3 +90,24 @@
 ```
 
 <br />
+
+## Handle Request Parameters
+* Four Types of Request Parameters
+  1. Path Parameters
+  2. Query Parameters
+  3. Body Payloads
+  4. Headers
+
+### [Path Parameters](Path_Parameters.md)
+* the main thing end users will interact with
+
+
+#### Codes
+* `404 Not Found`
+  * await a parameter after API path
+  * wrong name of paramters 
+* `422 Unprocessable Entity`
+  * type error. The type of arguments is not valid
+* `307 Temporary Redirect`
+  * the requested resource has been temporarily moved to another URI
+  * [All modern browsers will automatically detect the 307 Temporary Redirect response code and process the redirection action to the new URI automatically](https://blog.airbrake.io/blog/http-errors/307-temporary-redirect)
