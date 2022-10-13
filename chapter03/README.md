@@ -64,7 +64,7 @@
 * python_script is calles as a module, so use dotted path
 ```bash
     # :variable_name_of_your_ASGI_app_instance
-    uvicorn python_script:app --port <port> --host <host>
+    uvicorn <python_script>:app --port <port> --host <host>
 
     # use HTTPie to try the endpoint
     http http://<host>:<port>
