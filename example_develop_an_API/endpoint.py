@@ -1,5 +1,5 @@
 from enum import Enum
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 
 
 class UserType(str, Enum):
@@ -27,3 +27,7 @@ async def get_user(type: str, id: int):
 async def get_user(type: UserType, id: int):
     return {'type': type, 'id': id}
 
+
+@app.get('/users/{id}')
+async def get_user(id: int = Path(..., ge=1)):
+    return {'id': id} 
